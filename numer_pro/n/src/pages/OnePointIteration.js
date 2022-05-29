@@ -7,7 +7,7 @@ export const OnePointIteration = () => {
   const [Error, setError] = useState('')
 
   const handleSubmit = () =>{
-    var a = Onepoint({fx:Fx,}, {X0:x0}, {error:Error})
+    var a = Onepoint(Fx, x0, Error)
     console.log(a)
   }
 
@@ -37,6 +37,23 @@ export const OnePointIteration = () => {
             break;
         }
     } while (true);
+    return x1
+  }
+
+  const apibisection = async () =>{
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
+    const json = await response.json()
+    setValue(json)
+  }
+  const setValue = (json) =>{
+
+      document.getElementById("OneFunction").value = json.OneFx
+      document.getElementById("OneX0").value = json.OneX0
+      document.getElementById("OneError").value = json.OneError
+
+      setFx(json.OneFx)
+      setX0(json.OneX0)
+      setError(json.OneError)
   }
 
   return (
@@ -44,7 +61,7 @@ export const OnePointIteration = () => {
       <div className="row mt-4">
         <div className="col-12 col-md-6 offset-md-3">
           <h2 className="my-4 text-center">One Point</h2>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form-group">
               <label>Fucntion</label>
               <input
@@ -78,10 +95,13 @@ export const OnePointIteration = () => {
                 placeholder="Enter Error"
               />
             </div>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
           </form>
+          <button onClick={handleSubmit} type="submit" className="btn btn-primary">
+              Submit
+          </button>
+          <button variant = "primary" type = "submit" onClick={() => apibisection()}>
+              API
+          </button>
         </div>
       </div>
     </div>

@@ -6,7 +6,8 @@ export const CramerRule = () => {
   const [mb, SetB] = useState('')
 
   const handleSubmit = () =>{
-    var a = CramerRule({A:ma}, {B:mb})
+    var a = CramerRule(ma, mb)
+    console.log(a)
   }
 
   const CramerRule = (A, B) =>{
@@ -49,7 +50,20 @@ export const CramerRule = () => {
             x.push(t)
         }
     }
-    console.log(round(x))
+    return round(x)
+  }
+  const apibisection = async () =>{
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
+    const json = await response.json()
+    setValue(json)
+  }
+  const setValue = (json) =>{
+
+      document.getElementById("maCR").value = json.CMa
+      document.getElementById("mbCR").value = json.CMb
+
+      SetA(json.CMa)
+      SetB(json.CMb)
   }
 
   return (
@@ -84,6 +98,9 @@ export const CramerRule = () => {
             <button onClick={handleSubmit} type="submit" className="btn btn-primary">
               Submit
             </button>
+            <button variant = "primary" type = "submit" onClick={() => apibisection()}>
+              API
+          </button>
         </div>
       </div>
     </div>

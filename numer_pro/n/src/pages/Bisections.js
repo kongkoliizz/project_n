@@ -46,21 +46,21 @@ export const Bisection = () => {
     return xm
   }
   const apibisection = async () =>{
-    const response = await fetch('http://localhost:8080/api/mockups_data/bisection')
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
     const json = await response.json()
     setValue(json)
   }
   const setValue = (json) =>{
 
-      document.getElementById("BiFunction").value = json.Funtion
-      document.getElementById("BiLeft").value = json.Left
-      document.getElementById("BiRight").value = json.Right
-      document.getElementById("BiError").value = json.Error
+      document.getElementById("BiFunction").value = json.BiFunction
+      document.getElementById("BiLeft").value = json.BiLeft
+      document.getElementById("BiRight").value = json.BiRight
+      document.getElementById("BiError").value = json.BiError
 
-      setFx(json.Funtion)
-      setLeft(json.Left)
-      setRight(json.Right)
-      setError(json.Error)
+      setFx(json.BiFunction)
+      setLeft(json.BiLeft)
+      setRight(json.BiRight)
+      setError(json.BiError)
   }
 
   return (

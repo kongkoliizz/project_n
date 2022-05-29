@@ -8,6 +8,20 @@ export const LUCOM = () =>{
   const handleSubmit = () =>{
     LU(ma,mb)
   }
+  const apibisection = async () =>{
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
+    const json = await response.json()
+    setValue(json)
+  }
+  const setValue = (json) =>{
+
+      document.getElementById("maLU").value = json.LUMa
+      document.getElementById("mbLU").value = json.LUMb
+
+      SetA(json.LUMa)
+      SetB(json.LUMb)
+  }
+
   return (
     <div className="container">
       <div className="row mt-4">
@@ -39,6 +53,9 @@ export const LUCOM = () =>{
           </form>
             <button onClick={handleSubmit} type="submit" className="btn btn-primary">
               Submit
+            </button>
+            <button variant = "primary" type = "submit" onClick={() => apibisection()}>
+              API
             </button>
         </div>
       </div>

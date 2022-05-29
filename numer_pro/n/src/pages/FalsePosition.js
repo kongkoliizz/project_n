@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { derivative, simplify, evaluate } from 'mathjs'
+import { simplify, evaluate } from 'mathjs'
 
 export const FalsePosition = () => {
   const [Fx, setFx] = useState('')
@@ -8,7 +8,7 @@ export const FalsePosition = () => {
   const [Error, setError] = useState('')
 
   const handleSubmit = () =>{
-    var a = FalsePosition({fx:Fx,}, {L:Left}, {R:Right}, {error:Error})
+    var a = FalsePosition(Fx, Left, Right, Error)
     console.log(a)
   }
 
@@ -48,13 +48,30 @@ export const FalsePosition = () => {
     }
     return x1
   }
+  const apibisection = async () =>{
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
+    const json = await response.json()
+    setValue(json)
+  }
+  const setValue = (json) =>{
+
+      document.getElementById("FalseFunction").value = json.FalseFx
+      document.getElementById("FalseLeft").value = json.FalseLeft
+      document.getElementById("FalseRight").value = json.FalseRight
+      document.getElementById("FalseError").value = json.FalseError
+
+      setFx(json.FalseFx)
+      setLeft(json.FalseLeft)
+      setRight(json.FalseRight)
+      setError(json.FalseError)
+  }
 
   return (
     <div className="container">
       <div className="row mt-4">
         <div className="col-12 col-md-6 offset-md-3">
           <h2 className="my-4 text-center">False Position</h2>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form-group">
               <label>Fucntion</label>
               <input
@@ -99,10 +116,13 @@ export const FalsePosition = () => {
                 placeholder="Enter Error"
               />
             </div>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
           </form>
+          <button onClick={handleSubmit} type="submit" className="btn btn-primary">
+              Submit
+          </button>
+          <button variant = "primary" type = "submit" onClick={() => apibisection()}>
+              API
+          </button>
         </div>
       </div>
     </div>

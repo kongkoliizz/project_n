@@ -1,5 +1,3 @@
-import { simplify, evaluate } from 'mathjs';
-
 export const Newton = (Y,X,V) => {
     const mX = JSON.parse(X)
     const Y0 = JSON.parse(Y)

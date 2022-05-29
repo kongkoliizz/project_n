@@ -14,8 +14,8 @@ export const GaussElimination = (A,B) => {
         }
     }
 
-    // console.log(mA);
-    // console.log(mB);
+    console.log(mA);
+    console.log(mB);
 
     if (check) {
         for (let s = 0; s < size; s++) {

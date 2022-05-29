@@ -8,6 +8,19 @@ export const PR = () => {
   const handleSubmit = () =>{
       poly(A,o)
   }
+  const apibisection = async () =>{
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
+    const json = await response.json()
+    setValue(json)
+  }
+  const setValue = (json) =>{
+
+      document.getElementById("aploy").value = json.AP
+      document.getElementById("oply").value = json.OP
+
+      setA(json.AP)
+      setO(json.OP)
+  }
     
   return (
     <div className="container">
@@ -40,6 +53,9 @@ export const PR = () => {
           </form>
             <button onClick={handleSubmit} type="submit" className="btn btn-primary">
               Submit
+            </button>
+            <button variant = "primary" type = "submit" onClick={() => apibisection()}>
+              API
             </button>
         </div>
       </div>

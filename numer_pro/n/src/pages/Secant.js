@@ -40,6 +40,24 @@ export const Secant = () => {
         xm = (x1 * f(x2) - x2 * f(x1)) / (f(x2) - f(x1));
         err = Math.abs(xm - x0);
     } while (err >= e);
+    return xm
+  }
+  const apibisection = async () =>{
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
+    const json = await response.json()
+    setValue(json)
+  }
+  const setValue = (json) =>{
+
+      document.getElementById("SCFunction").value = json.SCFx
+      document.getElementById("SCLeft").value = json.SCLeft
+      document.getElementById("SCRight").value = json.SCRight
+      document.getElementById("SCError").value = json.SCError
+
+      setFx(json.SCFx)
+      setLeft(json.SCLeft)
+      setRight(json.SCRight)
+      setError(json.SCError)
   }
 
   return (
@@ -47,7 +65,7 @@ export const Secant = () => {
       <div className="row mt-4">
         <div className="col-12 col-md-6 offset-md-3">
           <h2 className="my-4 text-center">Secant</h2>
-          <form onSubmit={handleSubmit}>
+          <form>
             <div className="form-group">
               <label>Fucntion</label>
               <input
@@ -60,7 +78,7 @@ export const Secant = () => {
               />
             </div>
             <div className="form-group">
-              <label>Left</label>
+              <label>X1</label>
               <input
                 type="text"
                 className="form-control"
@@ -71,7 +89,7 @@ export const Secant = () => {
               />
             </div>
             <div className="form-group">
-              <label>Right</label>
+              <label>X2</label>
               <input
                 type="text"
                 className="form-control"
@@ -92,10 +110,13 @@ export const Secant = () => {
                 placeholder="Enter Error"
               />
             </div>
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
           </form>
+          <button onClick={handleSubmit} type="submit" className="btn btn-primary">
+              Submit
+          </button>
+          <button variant = "primary" type = "submit" onClick={() => apibisection()}>
+              API
+          </button>
         </div>
       </div>
     </div>

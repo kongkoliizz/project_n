@@ -9,6 +9,19 @@ export const GJ = () =>{
   const handleSubmit = () =>{
     GaussJordan(ma, mb)
   }
+  const apibisection = async () =>{
+    const response = await fetch('http://localhost:8080/api/mockups_data/api_n')
+    const json = await response.json()
+    setValue(json)
+  }
+  const setValue = (json) =>{
+
+      document.getElementById("maGJ").value = json.GJMa
+      document.getElementById("mbGJ").value = json.GJMb
+
+      SetA(json.GJMa)
+      SetB(json.GJMb)
+  }
   return (
     <div className="container">
       <div className="row mt-4">
@@ -41,6 +54,9 @@ export const GJ = () =>{
             <button onClick={handleSubmit} type="submit" className="btn btn-primary">
               Submit
             </button>
+            <button variant = "primary" type = "submit" onClick={() => apibisection()}>
+              API
+          </button>
         </div>
       </div>
     </div>
